@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Lamborghini Centenario</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
+		<style>
+			body {
+				color: #444;
+				background: #eee;
+			}
+			a {
+				color: #08f;
+			}
+			.colorPicker {
+				display: inline-block;
+				margin: 0 0px;
+			}
+
+
+			/* Bottom navigation */
+			.navbar {
+			  background-color: rgba(0, 0, 0, 0.6);
+			  overflow: auto;
+			  position: fixed;
+			  bottom: 0;
+			  width: 100%;
+  				-moz-user-select: none;
+				-webkit-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+				pointer-events: none;
+			}
+
+			/* Navigation links */
+			.navbar a {
+
+			  float: left;
+			  padding: 20px 0;
+			  color: white;
+			  text-decoration: none;
+			  font-size: 24px;
+			  font-family: 'Quicksand', sans-serif;
+			  width: 25%; /* Four equal-width links */
+			  height:100%;
+			  text-align: center;
+			  border-radius: 12px;
+			}
+
+			/* Add a background color on mouse-over */
+			.navbar a:hover {
+			  background-color: #000;
+
+			}
+
+			/* Style the current/active link */
+			.navbar a.active {
+			  background-color: #FFFFFF;
+			  			  color: #000000;
+
+			}
+
+			/* The side navigation menu */
+			.sidenav {
+			  height: 100%;
+			  width: 0; /* change with javascript */
+			  position: fixed; /* Stay in place */
+			  top: 0; /* Stay at the top */
+			  left: 0;
+			  background-color: rgba(0, 0, 0, 0);
+			  overflow-x: hidden; /* Disable horizontal scroll */
+			  padding-top: 0px; /* Place content 60px from the top */
+			  transition: 0s; /*transition effect to slide in the sidenav */
+			  -moz-user-select: none;
+				-webkit-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+				pointer-events: none;
+			}
+
+			/* The navigation menu links */
+			.sidenav a {
+			  display: inline-block;
+			  color: black;
+			  text-align: center;
+			  padding: 0px;
+			  text-decoration: none;
+			  font-size: 10px;
+			  border-radius: 5px;
+			  display: block;
+			  background-color: #fff;
+			  height: 100px;
+			  width: 100px;
+			  margin: 50px;
+			  border-style: solid;
+
+			}
+
+			.sidenav a:hover {
+			  background-color: #ddd;
+			  color: black;
+			}
+
+			/* Add a color to the active/current link */
+			.sidenav a.active {
+			  background-color: dodgerblue;
+			  color: white;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<div id="info">
+			Lamborghini Centenario configurator<br/>
+			Model from <a href="https://sketchfab.com/3d-models/lamborghini-centenario-lp-770-baby-blue-sdc-f15037dd5fcd4f09b13fb9f2ce9e21cc" target="_blank" rel="noopener">SDC</a>  on Sketchfab
+			<br><br>
+							<a class="colorPicker"><input id="body-color" type="color" value="#1119DE"></input><br/>Main colour</a>
+				<a class="colorPicker"><input id="details-color" type="color" value="#000000"></input><br/>Secondary colour</a>
+				<a class="colorPicker"><input id="glass-color" type="color" value="#ffffff"></input><br/>Wheels</a>
+
+		</div>
+
+		<!-- The navigation menu -->
+
+			<div class="navbar">
+			  <a id = "a-exterior" class="active" onclick="exteriorFunction(this)" href="#">Exterior </a>
+			  <a id = "a-interior" onclick="interiorFunction(this)" href="#">Interior</a>
+			  <a id = "a-options" onclick="optionsFunction(this)" href="#">Options</a>
+			  <a id = "a-summary" onclick="summaryFunction(this)" href="#">Summary</a>
+			</div>
+
+			<div id = "exteriorSidenav" class = "sidenav">
+				<a id = "main-colour" href="#">Main colour</a>
+				<a href="#">Secondary colour</a>
+				<a href="#">Wheels</a>
+			</div>
+
+			<div id = "interiorSidenav" class = "sidenav">
+				<a href="#">Main colour</a>
+				<a href="#">Secondary colour</a>
+				<a href="#">Leather</a>
+			</div>
+
+			<div id = "optionsSidenav" class = "sidenav">
+				<a href="#">Option 1</a>
+				<a href="#">Option 2</a>
+				<a href="#">Option 3</a>
+			</div>
+
+			<div id = "summarySidenav" class = "sidenav">
+				<a href="#">Summary ...</a>
+			</div>
+
+		<div id="container"></div>
+		
+		<script>
+			document.getElementById("exteriorSidenav").style.width = "250px";
+
+
+			function activeFunction(elem) {
+					// get all 'a' elements
+					var a = document.getElementsByTagName('a');
+					// loop through all 'a' elements
+					for (i = 0; i < a.length; i++) {
+						// Remove the class 'active' if it exists
+						a[i].classList.remove('active')
+					}
+					// add 'active' classs to the element that was clicked
+					elem.classList.add('active');
+			}
+
+			function disableSidenavs(){
+				var b = document.getElementsByClassName("sidenav");
+						// loop through all elements
+					for (i = 0; i < b.length; i++) {
+						// Change width to 0px
+						b[i].style.width = "0px"
+
+					}
+			}
+
+			function exteriorFunction(elem)	{
+					activeFunction(elem);
+					disableSidenavs()
+
+					document.getElementById("exteriorSidenav").style.width = "250px";
+			}
+
+			function interiorFunction(elem)	{
+					activeFunction(elem);
+					disableSidenavs()
+
+					document.getElementById("interiorSidenav").style.width = "250px";
+			}
+
+			function optionsFunction(elem)	{
+					activeFunction(elem);
+					disableSidenavs()
+
+					document.getElementById("optionsSidenav").style.width = "250px";
+			}
+
+			function summaryFunction(elem)	{
+					activeFunction(elem);
+					disableSidenavs();
+
+					document.getElementById("summarySidenav").style.width = "250px";
+			}
+
+
+
+		</script>
+
+		<script type="module">
+
+			import * as THREE from './threejs/build/three.module.js';
+
+			import Stats from './threejs/examples/jsm/libs/stats.module.js';
+      
+			import { GUI } from './threejs/examples/jsm/libs/dat.gui.module.js';
+      
+			import { OrbitControls } from './threejs/examples/jsm/controls/OrbitControls.js';
+			import { RoomEnvironment } from './threejs/examples/jsm/environments/RoomEnvironment.js';
+
+			import { GLTFLoader } from './threejs/examples/jsm/loaders/GLTFLoader.js';
+			import { DRACOLoader } from './threejs/examples/jsm/loaders/DRACOLoader.js';
+
+			let camera, scene, renderer;
+			let stats;
+
+			let grid;
+			let controls;
+			let settings;
+
+			const wheels = [];
+
+
+
+			function init() {
+			
+				const container = document.getElementById( 'container' );
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setAnimationLoop( render );
+				renderer.outputEncoding = THREE.sRGBEncoding;
+				renderer.toneMapping = THREE.ACESFilmicToneMapping;
+				renderer.toneMappingExposure = 0.85;
+				container.appendChild( renderer.domElement );
+
+				window.addEventListener( 'resize', onWindowResize );
+
+				stats = new Stats();
+				// container.appendChild( stats.dom );
+
+				//
+                  //GUI
+				//const gui = new GUI({ width: 310 });
+				//const folder1 = gui.addFolder( 'Controls' );
+				settings = {
+							'speed': 0,
+							 };
+				//folder1.add( settings, 'speed', 0, 350, 1);
+
+				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 0.1, 100 );
+				camera.position.set( 4.25, 1.4, - 4.5 );
+
+				controls = new OrbitControls( camera, container );
+				controls.target.set( 0, 0.5, 0 );
+				controls.update();
+
+				const pmremGenerator = new THREE.PMREMGenerator( renderer );
+
+				scene = new THREE.Scene();
+				scene.background = new THREE.Color( 0xeeeeee );
+				scene.environment = pmremGenerator.fromScene( new RoomEnvironment() ).texture;
+				scene.fog = new THREE.Fog( 0xeeeeee, 10, 50 );
+
+				grid = new THREE.GridHelper( 100, 40, 0x000000, 0x000000 );
+
+				// grid opacity 0 = invisible
+				grid.material.opacity = 0;
+
+				grid.material.depthWrite = false;
+				grid.material.transparent = true;
+				scene.add( grid );
+
+				// materials
+
+				const bodyMaterial = new THREE.MeshPhysicalMaterial( {
+					color: 0x1119DE, metalness: 0.6, roughness: 0.4, clearcoat: 0.05, clearcoatRoughness: 0.05
+				} );
+				document.getElementById("main-colour").style.backgroundColor ="#1119DE";
+
+				const detailsMaterial = new THREE.MeshStandardMaterial( {
+					color: 0x000000, metalness: 1.0, roughness: 0.5
+				} );
+
+				const glassMaterial = new THREE.MeshPhysicalMaterial( {
+					color: 0xffffff, metalness: 0, roughness: 0.1, transmission: 0.9, transparent: true, opacity: 0.5
+				} );
+
+				const bodyColorInput = document.getElementById( 'body-color' );
+				bodyColorInput.addEventListener( 'input', function () {
+
+					bodyMaterial.color.set( this.value );
+					document.getElementById("main-colour").style.backgroundColor =this.value;
+				} );
+
+				const detailsColorInput = document.getElementById( 'details-color' );
+				detailsColorInput.addEventListener( 'input', function () {
+
+					detailsMaterial.color.set( this.value );
+
+				} );
+
+				const glassColorInput = document.getElementById( 'glass-color' );
+				glassColorInput.addEventListener( 'input', function () {
+
+					glassMaterial.color.set( this.value );
+
+				} );
+
+				// Car
+
+				const shadow = new THREE.TextureLoader().load( './threejs/examples/models/gltf/ferrari_ao.png' );
+
+				const dracoLoader = new DRACOLoader();
+				dracoLoader.setDecoderPath( './threejs/examples/js/libs/draco/gltf/' );
+
+				const loader = new GLTFLoader();
+				loader.setDRACOLoader( dracoLoader );
+
+				loader.load( './Lambo.glb', function ( gltf ) {
+
+					const carModel = gltf.scene.children[ 0 ];
+
+					// body
+
+
+					carModel.getObjectByName( 'Object_103' ).material = bodyMaterial;
+					carModel.getObjectByName( 'Object_64' ).material = bodyMaterial;		          
+					carModel.getObjectByName( 'Object_77' ).material = bodyMaterial;
+					carModel.getObjectByName( 'Object_111' ).material = bodyMaterial;
+					carModel.getObjectByName( 'Object_10F' ).material = bodyMaterial;          
+					carModel.getObjectByName( 'Object_10' ).material = bodyMaterial;
+					carModel.getObjectByName( 'Object_39' ).material = bodyMaterial;
+					carModel.getObjectByName( 'Object_51' ).material = bodyMaterial;
+					carModel.getObjectByName( 'Object_54' ).material = bodyMaterial;
+					carModel.getObjectByName( 'Object_71' ).material = bodyMaterial;
+					carModel.getObjectByName( 'Object_84' ).material = bodyMaterial;
+					
+					
+					carModel.getObjectByName( 'Object_96').material = carModel.getObjectByName( 'Object_95').material;
+
+					// details
+					carModel.getObjectByName( 'Object_110' ).material = detailsMaterial;
+					carModel.getObjectByName( 'Object_94' ).material = detailsMaterial;
+					carModel.getObjectByName( 'Object_65' ).material = detailsMaterial;
+					carModel.getObjectByName( 'Object_78' ).material = detailsMaterial;   
+					
+					// glass
+					carModel.getObjectByName( 'Object_90' ).material = glassMaterial;
+					carModel.getObjectByName( 'Object_68' ).material = glassMaterial;
+          			carModel.getObjectByName( 'Object_81' ).material = glassMaterial;
+					carModel.getObjectByName( 'Object_90' ).material = glassMaterial;
+					carModel.getObjectByName( 'Object_91' ).material = glassMaterial;
+					carModel.getObjectByName( 'Object_89' ).material = glassMaterial;
+
+					// doublesided roof
+					carModel.getObjectByName( 'Object_103').material.side = THREE.DoubleSide;
+					carModel.getObjectByName( 'Object_110').material.side = THREE.DoubleSide;
+
+					wheels.push(
+						carModel.getObjectByName( 'R_wheels' ),
+						carModel.getObjectByName( 'F_wheels' )
+					);
+
+					// shadow
+					const mesh = new THREE.Mesh(
+						new THREE.PlaneGeometry( 0.655 * 4, 1.3 * 4 ),
+						new THREE.MeshBasicMaterial( {
+							map: shadow, blending: THREE.MultiplyBlending, toneMapped: false, transparent: true
+						} )
+					);
+					mesh.rotation.x = - Math.PI *2;
+					mesh.rotation.y = 0;
+					mesh.renderOrder = 2;
+					//carModel.add( mesh );
+
+					scene.add( carModel );
+
+				} );
+				loader.load( './showroom13.glb', function ( gltf ) {
+
+					const showRoom = gltf.scene.children[ 0 ];
+
+					scene.add( showRoom );
+
+					
+				} );
+			}
+
+
+
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			var intervalID = setInterval(wheelRotation, 5)
+
+			function wheelRotation() {
+				for ( let i = 0; i < wheels.length; i ++ ) {
+
+					wheels[ i ].rotation.x += settings['speed'] / 3.6 / 100 / 2 * Math.PI ;
+				}
+				grid.position.z = (grid.position.z + (settings['speed'] / 3.6 / 100 / 2)) % 5;
+			}
+			
+			function render() {
+
+				const time = - performance.now() / 1000;
+
+
+
+ 
+
+
+				renderer.render( scene, camera );
+
+				stats.update();
+        
+
+
+			}
+
+			init();
+
+		</script>
+
+	</body>
+</html>
